@@ -23,4 +23,9 @@ public class Sessions {
         DataBaseControl.isActualSessionStatement.setString(1, session);
         return DataBaseControl.isActualSessionStatement.executeQuery().getBoolean(1);
     }
+
+    public static void endSession(String authKey) throws SQLException {
+        DataBaseControl.removeSessionStatement.setString(1, authKey);
+        DataBaseControl.removeSessionStatement.execute();
+    }
 }

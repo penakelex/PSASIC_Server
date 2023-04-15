@@ -54,6 +54,12 @@ public class RequestProcessor {
         return gson.toJson(new Minimal(401, "Ключ сессии недействителен!"));
     }
 
+    @RequestMapping(value = "/quit", method = RequestMethod.POST)
+    public String quit(@RequestParam(required = true) String authKey) throws SQLException, UnsupportedEncodingException {
+        Sessions.endSession(authKey);
+        return gson.toJson(new Minimal(200, "Сессия завершена!"));
+    }
+
     @RequestMapping(value = "/isSession", method = RequestMethod.POST)
     public String isSession(@RequestParam(required = true) String authKey) throws SQLException, UnsupportedEncodingException {
         return gson.toJson(new IsSession(Sessions.isActualSession(authKey)));
