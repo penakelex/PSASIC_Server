@@ -21,8 +21,8 @@ public class RequestProcessor {
 
     // Обработчик запросов регистрации пользователя
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@RequestParam(required = true) String name, @RequestParam(required = true) String password) throws SQLException {
-        if (!Users.insert(name, password))
+    public String register(@RequestParam(required = true) String username, @RequestParam(required = true) String password) throws SQLException {
+        if (!Users.insert(username, password))
             return gson.toJson(new minimal(406, "Имя пользователя уже занято!"));
         return gson.toJson(new minimal(200, "Новый пользователь зарегистрирован!"));
     }
