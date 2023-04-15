@@ -21,4 +21,11 @@ public class Users {
         }
         return false;
     }
+
+    public static boolean isCorrectPassowrd(String username, String password) throws SQLException {
+        DataBaseControl.isUserPasswordStatement.setString(1, username);
+        DataBaseControl.isUserPasswordStatement.setString(2, password);
+        ResultSet res = DataBaseControl.isUserPasswordStatement.executeQuery();
+        return res.getBoolean(1);
+    }
 }

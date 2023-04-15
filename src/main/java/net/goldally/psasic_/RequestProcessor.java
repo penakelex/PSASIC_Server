@@ -1,5 +1,6 @@
 package net.goldally.psasic_;
 
+import net.goldally.psasic_.responces.login;
 import net.goldally.psasic_.responces.minimal;
 import net.goldally.psasic_.responces.registration;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +30,15 @@ public class RequestProcessor {
             return gson.toJson(new minimal(406, "Имя пользователя уже занято!"));
         String authKey = Sessions.createSession(username);
         return gson.toJson(new registration(200, authKey));
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(@RequestParam(required = true) String username, @RequestParam(required = true) String password) throws SQLException, UnsupportedEncodingException {
+        if(Users.isCorrectPassowrd(username, password)){
+            Sessions.removeAllSessions(username);
+            String authKey = Sessions.createSession(username);
+            return gson.toJson(new login(200, authKey));
+        }
+        return gson.toJson(new minimal(401, "Неверный логин или пароль"));
     }
 }

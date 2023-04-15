@@ -10,6 +10,12 @@ public class Sessions {
         String authKey = generateAuthKey();
         DataBaseControl.createSessionStatement.setString(1, username);
         DataBaseControl.createSessionStatement.setString(2, authKey);
+        DataBaseControl.createSessionStatement.execute();
         return authKey;
+    }
+
+    public static void removeAllSessions(String username) throws UnsupportedEncodingException, SQLException {
+        DataBaseControl.removeAllSessionsStatement.setString(1, username);
+        DataBaseControl.removeAllSessionsStatement.execute();
     }
 }
