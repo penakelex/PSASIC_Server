@@ -30,8 +30,8 @@ public class DataBaseControl {
         SessionsTableCreationStatement.execute();
 
         // Заполнение шаблонов запросов к БД.
-        UserCountStatement = dbConnection.prepareStatement("SELECT COUNT(*) FROM users WHERE name=?");
-        UserInsertStatement = dbConnection.prepareStatement("INSERT INTO users (name, password_hash) VALUES (?, ?)");
+        UserCountStatement = dbConnection.prepareStatement("SELECT COUNT(*) FROM users WHERE username=?");
+        UserInsertStatement = dbConnection.prepareStatement("INSERT INTO users (username, password_hash) VALUES (?, ?)");
 
     }
 }

@@ -12,9 +12,9 @@ public class Users {
         return usersWithThisUsername > 0;
     }
 
-    public static Boolean insert(String name, String password) throws SQLException {
-        if (!isThereUsersWithThisName(name)) {
-            DataBaseControl.UserInsertStatement.setString(1, name);
+    public static Boolean insert(String username, String password) throws SQLException {
+        if (!isThereUsersWithThisName(username)) {
+            DataBaseControl.UserInsertStatement.setString(1, username);
             DataBaseControl.UserInsertStatement.setString(2, password);
             DataBaseControl.UserInsertStatement.execute();
             return true;
