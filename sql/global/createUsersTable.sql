@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS [users] (
+[id] INTEGER  PRIMARY KEY NOT NULL,
+[username] TEXT  UNIQUE NOT NULL,
+[name] TEXT DEFAULT 'Иван' UNIQUE NULL,
+[surname] TEXT DEFAULT 'Иванов' NULL,
+[password_hash] TEXT  NOT NULL
+)
