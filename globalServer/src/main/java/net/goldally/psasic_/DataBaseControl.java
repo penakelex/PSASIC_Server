@@ -41,7 +41,7 @@ public class DataBaseControl {
         // Заполнение шаблонов запросов к БД.
         UserCountStatement = dbConnection.prepareStatement("SELECT COUNT(*) FROM users WHERE username=?");
         isUserPasswordStatement = dbConnection.prepareStatement("SELECT COUNT(*)>0 FROM users WHERE username=? AND password_hash=?");
-        UserInsertStatement = dbConnection.prepareStatement("INSERT INTO users (username, password_hash) VALUES (?, ?)");
+        UserInsertStatement = dbConnection.prepareStatement("INSERT INTO users (username, password_hash, email) VALUES (?, ?, ?)");
         createSessionStatement = dbConnection.prepareStatement("INSERT INTO sessions (username, session) VALUES (?, ?)");
         removeSessionStatement = dbConnection.prepareStatement("DELETE FROM sessions WHERE session=?");
         removeAllSessionsStatement = dbConnection.prepareStatement("DELETE FROM sessions WHERE username=?");

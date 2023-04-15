@@ -2,8 +2,6 @@ package net.goldally.psasic_;
 
 import net.goldally.psasic_.responces.UserInfo;
 
-import javax.xml.crypto.Data;
-import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -16,10 +14,11 @@ public class Users {
         return usersWithThisUsername > 0;
     }
 
-    public static Boolean insert(String username, String password) throws SQLException {
+    public static Boolean insert(String username, String password, String email) throws SQLException {
         if (!isThereUsersWithThisName(username)) {
             DataBaseControl.UserInsertStatement.setString(1, username);
             DataBaseControl.UserInsertStatement.setString(2, password);
+            DataBaseControl.UserInsertStatement.setString(3, email);
             DataBaseControl.UserInsertStatement.execute();
             return true;
         }

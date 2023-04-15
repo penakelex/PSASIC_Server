@@ -26,8 +26,8 @@ public class RequestProcessor {
 
     // Обработчик запросов регистрации пользователя
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@RequestParam(required = true) String username, @RequestParam(required = true) String password) throws SQLException, UnsupportedEncodingException {
-        if (!Users.insert(username, password))
+    public String register(@RequestParam(required = true) String username, @RequestParam(required = true) String password, @RequestParam(required = true) String email) throws SQLException, UnsupportedEncodingException {
+        if (!Users.insert(username, password, email))
             return gson.toJson(new Minimal(406, "Имя пользователя уже занято!"));
         String authKey = Sessions.createSession(username);
         return gson.toJson(new registration(authKey));
