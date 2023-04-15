@@ -19,7 +19,7 @@ public class RequestProcessor {
 
     // Обработчик запросов регистрации пользователя
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String home(@RequestParam(required = true) String name, @RequestParam(required = true) String password) throws SQLException {
+    public String register(@RequestParam(required = true) String name, @RequestParam(required = true) String password) throws SQLException {
         if (!Users.insert(name, password))
             return Formater.sampleResponse(406, "Имя пользователя уже занято!");
         return Formater.sampleResponse(200, "Новый пользователь зарегистрирован!");
