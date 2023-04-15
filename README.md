@@ -1,6 +1,7 @@
 # Hackathon_Project_Backend
 Серверная часть приложения на хакатон Samsung
 
+![alt text](https://raw.githubusercontent.com/penakelex/Hackathon_Project_Backend/main/networkArchitecture.png)
 
 WEB API запросы для ***глобального сервера***:
 
