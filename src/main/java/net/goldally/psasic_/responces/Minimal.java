@@ -1,9 +1,9 @@
 package net.goldally.psasic_.responces;
 
-public class minimal {
+public class Minimal {
     int code;
     String message;
-    public minimal(int code, String message){
+    public Minimal(int code, String message){
         this.code = code;
         this.message = message;
     }
