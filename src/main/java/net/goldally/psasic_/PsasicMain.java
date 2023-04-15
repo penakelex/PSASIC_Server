@@ -1,5 +1,6 @@
 package net.goldally.psasic_;
 
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 @SpringBootApplication
 @RestController
 public class PsasicMain implements ErrorController {
+    public static Gson gson = new Gson();
     public static final Logger log = LoggerFactory.getLogger("Профилировщание");
 
     // Инициализация.
