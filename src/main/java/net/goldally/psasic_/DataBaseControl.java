@@ -20,6 +20,13 @@ public class DataBaseControl {
     public static PreparedStatement removeAllSessionsStatement;
     public static PreparedStatement aboutStatement;
 
+    public static PreparedStatement userBySessionStatement;
+
+    public static PreparedStatement changeNameStatement;
+    public static PreparedStatement changeSurnameStatement;
+    public static PreparedStatement changeDateOfBirthStatement;
+    public static PreparedStatement changeIconStatement;
+
     public static void init() throws SQLException, ClassNotFoundException, IOException {
         // Подключение к базе данных.
         Class.forName("org.sqlite.JDBC");
@@ -40,5 +47,12 @@ public class DataBaseControl {
         removeAllSessionsStatement = dbConnection.prepareStatement("DELETE FROM sessions WHERE username=?");
         isActualSessionStatement = dbConnection.prepareStatement("SELECT COUNT(*)>0 FROM sessions WHERE session=?");
         aboutStatement = dbConnection.prepareStatement("SELECT username, name, surname, icon, dateOfBirth FROM users WHERE username=?");
+
+        userBySessionStatement = dbConnection.prepareStatement("SELECT username FROM sessions WHERE session=?");
+
+        changeNameStatement = dbConnection.prepareStatement("UPDATE users SET name=? WHERE username=?");
+        changeSurnameStatement = dbConnection.prepareStatement("UPDATE users SET surname=? WHERE username=?");
+        changeDateOfBirthStatement = dbConnection.prepareStatement("UPDATE users SET dateOfBirth=? WHERE username=?");
+        changeIconStatement = dbConnection.prepareStatement("UPDATE users SET icon=? WHERE username=?");
     }
 }

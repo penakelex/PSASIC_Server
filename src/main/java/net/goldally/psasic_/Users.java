@@ -6,6 +6,7 @@ import javax.xml.crypto.Data;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class Users {
     public static boolean isThereUsersWithThisName(String name) throws SQLException {
@@ -40,5 +41,34 @@ public class Users {
                 res.getString("surname"),
                 res.getDate("dateOfBirth"),
                 res.getString("icon"));
+    }
+
+    public static String getUserBySession(String authKey) throws SQLException {
+        DataBaseControl.userBySessionStatement.setString(1, authKey);
+        return DataBaseControl.userBySessionStatement.executeQuery().getString(1);
+    }
+
+    public static void setName(String username, String name) throws SQLException {
+        DataBaseControl.changeNameStatement.setString(1, name);
+        DataBaseControl.changeNameStatement.setString(2, username);
+        DataBaseControl.changeNameStatement.execute();
+    }
+
+    public static void setSurname(String username, String surname) throws SQLException {
+        DataBaseControl.changeSurnameStatement.setString(1, surname);
+        DataBaseControl.changeSurnameStatement.setString(2, username);
+        DataBaseControl.changeSurnameStatement.execute();
+    }
+
+    public static void setDateOfBirth(String username, Date date) throws SQLException {
+        DataBaseControl.changeDateOfBirthStatement.setDate(1, new java.sql.Date(date.getTime()));
+        DataBaseControl.changeDateOfBirthStatement.setString(2, username);
+        DataBaseControl.changeDateOfBirthStatement.execute();
+    }
+
+    public static void setIcon(String username, String icon) throws SQLException {
+        DataBaseControl.changeIconStatement.setString(1, icon);
+        DataBaseControl.changeIconStatement.setString(2, username);
+        DataBaseControl.changeIconStatement.execute();
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.Date;
 
 import static net.goldally.psasic_.PsasicMain.gson;
 
@@ -63,5 +64,28 @@ public class RequestProcessor {
     @RequestMapping(value = "/isSession", method = RequestMethod.POST)
     public String isSession(@RequestParam(required = true) String authKey) throws SQLException, UnsupportedEncodingException {
         return gson.toJson(new IsSession(Sessions.isActualSession(authKey)));
+    }
+
+    @RequestMapping(value = "/changeMyPersonalData", method = RequestMethod.POST)
+    public String changeData(@RequestParam(required = true) String authKey,
+                             @RequestParam(required = false) String name,
+                             @RequestParam(required = false) String surname,
+                             @RequestParam(required = false) Date dateOfBirth,
+                             @RequestParam(required = false) String icon)
+            throws SQLException, UnsupportedEncodingException {
+        String username = Users.getUserBySession(authKey);
+        if(name != null){
+            Users.setName(username, name);
+        }
+        if(surname != null){
+            Users.setSurname(username, surname);
+        }
+        if(dateOfBirth != null){
+            Users.setDateOfBirth(username, dateOfBirth);
+        }
+        if(icon != null){
+            Users.setIcon(username, icon);
+        }
+        return gson.toJson(new Minimal(200, "OK"));
     }
 }
