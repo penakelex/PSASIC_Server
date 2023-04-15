@@ -15,7 +15,7 @@ public class DataBaseControl {
 
     //TODO: Авторизация
     public static PreparedStatement isUserPasswordStatement;
-    public static PreparedStatement addUserSessionStatement;
+    public static PreparedStatement createSessionStatement;
     public static PreparedStatement removeSessionStatement;
 
     public static void init() throws SQLException, ClassNotFoundException, IOException {
@@ -32,6 +32,7 @@ public class DataBaseControl {
         // Заполнение шаблонов запросов к БД.
         UserCountStatement = dbConnection.prepareStatement("SELECT COUNT(*) FROM users WHERE username=?");
         UserInsertStatement = dbConnection.prepareStatement("INSERT INTO users (username, password_hash) VALUES (?, ?)");
-
+        createSessionStatement = dbConnection.prepareStatement("INSERT INTO sessions (username, session) VALUES (?, ?)");
+        removeSessionStatement = dbConnection.prepareStatement("DELETE FROM sessions WHERE session=?");
     }
 }
