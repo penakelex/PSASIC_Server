@@ -1,5 +1,8 @@
 package net.goldally.psasic_;
 
+import net.goldally.psasic_.responces.UserInfo;
+
+import javax.xml.crypto.Data;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,5 +30,15 @@ public class Users {
         DataBaseControl.isUserPasswordStatement.setString(2, password);
         ResultSet res = DataBaseControl.isUserPasswordStatement.executeQuery();
         return res.getBoolean(1);
+    }
+
+    public static Object about(String username) throws SQLException {
+        DataBaseControl.aboutStatement.setString(1, username);
+        ResultSet res = DataBaseControl.aboutStatement.executeQuery();
+        return new UserInfo(res.getString("username"),
+                res.getString("name"),
+                res.getString("surname"),
+                res.getDate("dateOfBirth"),
+                res.getString("icon"));
     }
 }

@@ -13,11 +13,12 @@ public class DataBaseControl {
     public static PreparedStatement UserInsertStatement;
     public static PreparedStatement UserCountStatement;
 
-    //TODO: Авторизация
     public static PreparedStatement isUserPasswordStatement;
+    public static PreparedStatement isActualSessionStatement;
     public static PreparedStatement createSessionStatement;
     public static PreparedStatement removeSessionStatement;
     public static PreparedStatement removeAllSessionsStatement;
+    public static PreparedStatement aboutStatement;
 
     public static void init() throws SQLException, ClassNotFoundException, IOException {
         // Подключение к базе данных.
@@ -37,5 +38,7 @@ public class DataBaseControl {
         createSessionStatement = dbConnection.prepareStatement("INSERT INTO sessions (username, session) VALUES (?, ?)");
         removeSessionStatement = dbConnection.prepareStatement("DELETE FROM sessions WHERE session=?");
         removeAllSessionsStatement = dbConnection.prepareStatement("DELETE FROM sessions WHERE username=?");
+        isActualSessionStatement = dbConnection.prepareStatement("SELECT COUNT(*)>0 FROM sessions WHERE session=?");
+        aboutStatement = dbConnection.prepareStatement("SELECT username, name, surname, icon, dateOfBirth FROM users WHERE username=?");
     }
 }

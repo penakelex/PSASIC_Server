@@ -34,11 +34,23 @@ public class RequestProcessor {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam(required = true) String username, @RequestParam(required = true) String password) throws SQLException, UnsupportedEncodingException {
-        if(Users.isCorrectPassowrd(username, password)){
+        if (Users.isCorrectPassowrd(username, password)) {
             Sessions.removeAllSessions(username);
             String authKey = Sessions.createSession(username);
             return gson.toJson(new login(200, authKey));
         }
-        return gson.toJson(new minimal(401, "Неверный логин или пароль"));
+        return gson.toJson(new minimal(401, "Неверный логин или пароль!"));
+    }
+
+    @RequestMapping(value = "/about", method = RequestMethod.POST)
+    public String about(@RequestParam(required = true) String authKey, @RequestParam(required = true) String username) throws SQLException, UnsupportedEncodingException {
+        if (Sessions.isActualSession(authKey)) {
+            if (Users.isThereUsersWithThisName(username)) {
+                return gson.toJson(Users.about(username));
+            }else{
+                return gson.toJson(new minimal(404, "Пользователь не найден!"));
+            }
+        }
+        return gson.toJson(new minimal(401, "Ключ сессии недействителен!"));
     }
 }

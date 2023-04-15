@@ -18,4 +18,9 @@ public class Sessions {
         DataBaseControl.removeAllSessionsStatement.setString(1, username);
         DataBaseControl.removeAllSessionsStatement.execute();
     }
+
+    public static boolean isActualSession(String session) throws SQLException {
+        DataBaseControl.isActualSessionStatement.setString(1, session);
+        return DataBaseControl.isActualSessionStatement.executeQuery().getBoolean(1);
+    }
 }
