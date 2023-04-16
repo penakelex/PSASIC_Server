@@ -28,7 +28,5 @@ public class PsasicMain implements ErrorController {
         logger.warn("С ЭТОГО МОМЕНТА БУДЕМ ГОВОРИТЬ ПО-РУССКИ.");
         DataBaseControl.init();
         logger.info("Подключение к базе данных выполнено успешно!");
-        HttpManipulator.init();
-        logger.info("Инициализация глобального http интерфейса завершена!");
     }
 }

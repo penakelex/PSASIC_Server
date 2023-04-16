@@ -35,6 +35,6 @@ public class DataBaseControl {
         createUsersTableStatement.execute();
 
         // Заполнение шаблонов запросов к БД.
-        createMessagesTableStatement = dbConnection.prepareStatement("Select username from users");
+        listUsersStatement = dbConnection.prepareStatement("Select username from users");
     }
 }
