@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS [friends] (
+[friend1] TEXT  NOT NULL,
+[friend2] TEXT  NOT NULL
+)
