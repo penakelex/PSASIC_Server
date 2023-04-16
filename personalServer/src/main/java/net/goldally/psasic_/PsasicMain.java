@@ -9,6 +9,7 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 
 
@@ -16,17 +17,18 @@ import java.sql.SQLException;
 @RestController
 public class PsasicMain implements ErrorController {
     public static Gson gson = new Gson();
-    public static final Logger log = LoggerFactory.getLogger("Профилировщание");
+    public static final Logger logger = LoggerFactory.getLogger("Профилировщание");
 
     // Инициализация.
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException, URISyntaxException, InterruptedException {
         SpringApplication.run(PsasicMain.class, args);
 
         // Указываем на важность русского языка.
-        log.info("");
-        log.warn("С ЭТОГО МОМЕНТА БУДЕМ ГОВОРИТЬ ПО-РУССКИ.");
+        logger.info("");
+        logger.warn("С ЭТОГО МОМЕНТА БУДЕМ ГОВОРИТЬ ПО-РУССКИ.");
         DataBaseControl.init();
-        log.info("Подключение к базе данных выполнено успешно!");
-
+        logger.info("Подключение к базе данных выполнено успешно!");
+        HttpManipulator.init();
+        logger.info("Инициализация глобального http интерфейса завершена!");
     }
 }

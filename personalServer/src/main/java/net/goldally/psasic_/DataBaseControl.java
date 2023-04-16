@@ -12,7 +12,8 @@ public class DataBaseControl {
     public static PreparedStatement createInvitesTableStatement;
     public static PreparedStatement createGeoTableStatement;
     public static PreparedStatement createMessagesTableStatement;
-    public static PreparedStatement createAuthorizationTableStatement;
+    public static PreparedStatement createUsersTableStatement;
+    public static PreparedStatement listUsersStatement;
 
 
     public static void init() throws SQLException, ClassNotFoundException, IOException {
@@ -25,14 +26,15 @@ public class DataBaseControl {
         createInvitesTableStatement = dbConnection.prepareStatement(readFile("sql/personal/createInvitesTable.sql"));
         createGeoTableStatement = dbConnection.prepareStatement(readFile("sql/personal/createGeoTable.sql"));
         createMessagesTableStatement = dbConnection.prepareStatement(readFile("sql/personal/createMessagesTable.sql"));
-        //createAuthorizationTableStatement = dbConnection.prepareStatement(readFile("sql/personal/createAuthorizationTable.sql"));
+        createUsersTableStatement = dbConnection.prepareStatement(readFile("sql/personal/createUsersTable.sql"));
         //TODO: Сделать местную авторизацию, что-бы не использовать сразу везде один ключ.
         createFriendsTableStatement.execute();
         createInvitesTableStatement.execute();
         createGeoTableStatement.execute();
         createMessagesTableStatement.execute();
-        //createAuthorizationTableStatement.execute();
+        createUsersTableStatement.execute();
 
         // Заполнение шаблонов запросов к БД.
+        createMessagesTableStatement = dbConnection.prepareStatement("Select username from users");
     }
 }

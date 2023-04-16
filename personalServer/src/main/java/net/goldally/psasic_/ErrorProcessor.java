@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import static net.goldally.psasic_.PsasicMain.gson;
-import static net.goldally.psasic_.PsasicMain.log;
+import static net.goldally.psasic_.PsasicMain.logger;
 
 @RestController
 public class ErrorProcessor {
@@ -18,7 +18,7 @@ public class ErrorProcessor {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         Object message = request.getAttribute(RequestDispatcher.ERROR_MESSAGE);
 
-        log.info("");
+        logger.info("");
 
         if (status != null) {
             Integer statusCode = Integer.valueOf(status.toString());
