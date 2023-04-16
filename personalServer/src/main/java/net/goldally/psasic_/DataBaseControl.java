@@ -1,5 +1,6 @@
 package net.goldally.psasic_;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.*;
 
@@ -14,6 +15,8 @@ public class DataBaseControl {
     public static PreparedStatement createMessagesTableStatement;
     public static PreparedStatement createUsersTableStatement;
     public static PreparedStatement listUsersStatement;
+    public static PreparedStatement isMemberStatement;
+    public static PreparedStatement addMemberStatement;
 
 
     public static void init() throws SQLException, ClassNotFoundException, IOException {
@@ -35,6 +38,8 @@ public class DataBaseControl {
         createUsersTableStatement.execute();
 
         // Заполнение шаблонов запросов к БД.
-        listUsersStatement = dbConnection.prepareStatement("Select username from users");
+        listUsersStatement =dbConnection.prepareStatement("SELECT * FROM users");
+        isMemberStatement = dbConnection.prepareStatement("SELECT COUNT(*)>0 FROM users WHERE username=?");
+        addMemberStatement = dbConnection.prepareStatement("INSERT INTO users (username) values (?)");
     }
 }

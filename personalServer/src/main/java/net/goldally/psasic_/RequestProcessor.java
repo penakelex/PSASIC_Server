@@ -23,7 +23,7 @@ public class RequestProcessor {
 
     @RequestMapping(value = "/listUsers", produces = "application/json")
     public String listUsers(@RequestParam(required = true) String authKey) throws IOException, URISyntaxException, InterruptedException, SQLException {
-        if (Sessions.isSession(authKey)) {
+        if (Sessions.validate(authKey)) {
             return gson.toJson(new FriendsList(Users.getAllUsers()));
         }else{
             return gson.toJson(new Minimal(406, "Ваша сессия недействительна!"));
