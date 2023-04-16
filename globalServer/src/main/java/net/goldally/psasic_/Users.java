@@ -2,9 +2,12 @@ package net.goldally.psasic_;
 
 import net.goldally.psasic_.responces.UserInfo;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+
+import static net.goldally.psasic_.misc.Hasher.hashed;
 
 public class Users {
     public static boolean isThereUsersWithThisName(String name) throws SQLException {
@@ -14,10 +17,10 @@ public class Users {
         return usersWithThisUsername > 0;
     }
 
-    public static Boolean insert(String username, String password, String email) throws SQLException {
+    public static Boolean insert(String username, String password, String email) throws SQLException, UnsupportedEncodingException {
         if (!isThereUsersWithThisName(username)) {
             DataBaseControl.UserInsertStatement.setString(1, username);
-            DataBaseControl.UserInsertStatement.setString(2, password);
+            DataBaseControl.UserInsertStatement.setString(2, hashed(password));
             DataBaseControl.UserInsertStatement.setString(3, email);
             DataBaseControl.UserInsertStatement.execute();
             return true;
@@ -25,9 +28,9 @@ public class Users {
         return false;
     }
 
-    public static boolean isCorrectPassowrd(String username, String password) throws SQLException {
+    public static boolean isCorrectPassowrd(String username, String password) throws SQLException, UnsupportedEncodingException {
         DataBaseControl.isUserPasswordStatement.setString(1, username);
-        DataBaseControl.isUserPasswordStatement.setString(2, password);
+        DataBaseControl.isUserPasswordStatement.setString(2, hashed(password));
         ResultSet res = DataBaseControl.isUserPasswordStatement.executeQuery();
         return res.getBoolean(1);
     }
