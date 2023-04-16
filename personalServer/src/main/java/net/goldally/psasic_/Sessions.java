@@ -21,7 +21,7 @@ public class Sessions extends Request {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         Map<String, String> params = new HashMap<>();
-        params.put("authKey", "5e6f8c18bd4b992c7328bf34cb68c9170f9c44084d8f9c4bb388c24cf8db9646");
+        params.put("authKey", authKey);
 
         StringBuilder requestData = new StringBuilder();
 
