@@ -1,9 +1,6 @@
 package net.goldally.psasic_;
 
-import net.goldally.psasic_.responces.IsSession;
-import net.goldally.psasic_.responces.login;
-import net.goldally.psasic_.responces.Minimal;
-import net.goldally.psasic_.responces.registration;
+import net.goldally.psasic_.responces.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.Map;
 
 import static net.goldally.psasic_.PsasicMain.gson;
 
@@ -31,7 +27,7 @@ public class RequestProcessor {
         if (!Users.insert(username, password, email))
             return gson.toJson(new Minimal(406, "Имя пользователя уже занято!"));
         String authKey = Sessions.createSession(username);
-        return gson.toJson(new registration(authKey));
+        return gson.toJson(new Registration(authKey));
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -67,6 +63,11 @@ public class RequestProcessor {
         return gson.toJson(new IsSession(Sessions.isActualSession(authKey)));
     }
 
+    @RequestMapping(value = "/userBySession", method = RequestMethod.POST)
+    public String userBySession(@RequestParam(required = true) String authKey) throws SQLException, UnsupportedEncodingException {
+        return gson.toJson(new UserBySession(Sessions.userBySession(authKey)));
+    }
+
     @RequestMapping(value = "/changeMyPersonalData", method = RequestMethod.POST)
     public String changeData(@RequestParam(required = true) String authKey,
                              @RequestParam(required = false) String name,
@@ -89,4 +90,5 @@ public class RequestProcessor {
         }
         return gson.toJson(new Minimal(200, "OK"));
     }
+
 }

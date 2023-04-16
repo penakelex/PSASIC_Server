@@ -1,8 +1,8 @@
 package net.goldally.psasic_.responces;
 
-public class registration extends Minimal {
+public class Registration extends Minimal {
     String authKey;
-    public registration(String authKey) {
+    public Registration(String authKey) {
         super(200, "OK");
         this.authKey = authKey;
     }

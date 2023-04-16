@@ -28,4 +28,9 @@ public class Sessions {
         DataBaseControl.removeSessionStatement.setString(1, authKey);
         DataBaseControl.removeSessionStatement.execute();
     }
+
+    public static String userBySession(String authKey) throws SQLException {
+        DataBaseControl.userBySessionStatement.setString(1, authKey);
+        return DataBaseControl.userBySessionStatement.executeQuery().getString(1);
+    }
 }
